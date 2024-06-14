@@ -36,11 +36,11 @@
   margin-bottom: 40px;
   text-align: center;
   font-style: italic;
-  font-weight: 800;
+  font-weight: 1000;
   cursor: pointer;
   transition: 0.4s;
   opacity: 0.6;
-  color: rgb(21, 21, 84);
+  color: rgb(27, 27, 86);
   letter-spacing: 5px;
 }
 
