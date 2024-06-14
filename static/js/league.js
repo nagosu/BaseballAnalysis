@@ -5,9 +5,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const leagueName = getParameterByName("league");
+  const leagueImage = document.getElementById("leagueImage");
+
   if (leagueName) {
-    document.getElementById("leagueName").textContent = leagueName;
+    switch (leagueName.toLowerCase()) {
+      case "mlb":
+        leagueImage.src = "../static/assets/images/league/mlb.jpeg";
+        break;
+      case "kbo":
+        leagueImage.src = "../static/assets/images/league/kbo.png";
+        break;
+      case "npb":
+        leagueImage.src = "../static/assets/images/league/npb.jpeg";
+        break;
+      default:
+        leagueImage.alt = "League image not found";
+    }
   } else {
-    document.getElementById("leagueName").textContent = "League not found";
+    leagueImage.alt = "No league specified";
   }
 });
