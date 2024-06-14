@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.container .content {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.container .content .leagueCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  height: 750px;
+  cursor: pointer;
+}
+
+.container .content .leagueCol:hover .leagueTitle,
+.container .content .leagueCol:hover .leagueImageContainer img {
+  opacity: 1;
+}
+
+.container .content .leagueCol:hover .leagueImageContainer img {
+  transform: scale(1.01);
+}
+
+.container .leagueCol .leagueTitle {
+  font-size: 80px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: center;
+  font-style: italic;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.4s;
+  opacity: 0.6;
+  color: rgb(21, 21, 84);
+  letter-spacing: 5px;
+}
+
+.leagueCol .leagueImageContainer {
+  width: 100%;
+  height: 580px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leagueCol .leagueImageContainer img {
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  transition: 0.4s;
+  cursor: pointer;
+}
