@@ -12,14 +12,18 @@
   align-items: center;
   width: fit-content;
   height: fit-content;
+  position: relative;
 }
 
-.container .leagueImageContainer img {
-  width: 800px;
-  /* width: 800px;
-  margin-left: 150px; kbo */
-  /* width: 930px; npb */
+.container .leagueImageContainer #leagueImage {
   opacity: 0.5;
+}
+
+.container .emblem {
+  position: absolute;
+  width: 60px;
+  transition: all 0.5s ease; /* 애니메이션 효과 추가 */
+  cursor: pointer; /* 클릭 가능 표시 */
 }
 
 .container .gameInfo {
@@ -57,12 +61,13 @@
   height: 199px;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .container .gameInfo .versus .teamCol .teamImageContainer img {
   width: 100%;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center;
 }
 
 .container .gameInfo .versus .teamCol .teamName {
@@ -93,11 +98,14 @@
   justify-content: center;
   width: 575px;
   height: 290px;
-  border-radius: 50%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .container .gameInfo .stadium img {
   width: 100%;
   object-fit: cover;
+  transform-origin: center; /* 애니메이션의 중심점을 설정 */
+  border-radius: 50%;
+  width: 575px;
+  height: 290px;
 }

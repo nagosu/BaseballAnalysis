@@ -1,3 +1,4 @@
+<!-- league.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,7 +12,13 @@
     <div class="container">
       <!-- 지도 -->
       <div class="leagueImageContainer">
-        <img id="leagueImage" src="" alt="League Image" />
+        <img
+          id="leagueImage"
+          src="../static/assets/images/league/npb.jpeg"
+          alt="League Image"
+        />
+        <!-- 엠블럼을 배치할 요소들 -->
+        <div id="emblemsContainer"></div>
       </div>
 
       <!-- 게임 정보 -->
@@ -19,13 +26,14 @@
         <div class="versus">
           <!-- AWAY -->
           <div class="teamCol">
-            <div class="teamImageContainer">
+            <div class="teamImageContainer" id="awayTeamContainer">
               <img
                 src="../static/assets/images/npb/away.png"
                 alt="Away Team Image"
+                id="awayTeamImage"
               />
             </div>
-            <h1 class="teamName">AWAY</h1>
+            <h1 class="teamName" id="awayTeamName">AWAY</h1>
           </div>
           <!-- VS -->
           <div class="versusImageContainer">
@@ -36,13 +44,14 @@
           </div>
           <!-- HOME -->
           <div class="teamCol">
-            <div class="teamImageContainer">
+            <div class="teamImageContainer" id="homeTeamContainer">
               <img
                 src="../static/assets/images/npb/home.png"
                 alt="Home Team Image"
+                id="homeTeamImage"
               />
             </div>
-            <h1 class="teamName">HOME</h1>
+            <h1 class="teamName" id="homeTeamName">HOME</h1>
           </div>
         </div>
         <div class="stadium">
