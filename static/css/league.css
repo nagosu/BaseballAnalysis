@@ -22,8 +22,8 @@
 .container .emblem {
   position: absolute;
   width: 60px;
-  transition: all 0.5s ease; /* 애니메이션 효과 추가 */
-  cursor: pointer; /* 클릭 가능 표시 */
+  transition: all 0.5s ease;
+  cursor: pointer;
 }
 
 .container .gameInfo {

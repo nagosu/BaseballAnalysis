@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return urlParams.get(name);
   }
 
-  const leagueName = getParameterByName("league");
+  const leagueName = getParameterByName("league"); // URL에서 리그 이름 가져오기
+
+  // DOM 요소
   const leagueImage = document.getElementById("leagueImage");
   const emblemsContainer = document.getElementById("emblemsContainer");
   const stadiumImage = document.querySelector(".stadium img");
@@ -15,12 +17,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const homeTeamContainer = document.getElementById("homeTeamContainer");
   const awayTeamContainer = document.getElementById("awayTeamContainer");
 
+  // 팀 선택 여부
   let homeTeamSelected = false;
   let awayTeamSelected = false;
   let currentHomeEmblem = null;
   let currentAwayEmblem = null;
 
+  // 엠블럼 데이터
   const emblemsData = {
+    // MLB 엠블럼 데이터
     mlb: [
       {
         src: "../static/assets/images/mlb/angels.png",
@@ -373,6 +378,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ],
   };
 
+  // 리그 이름에 따라 이미지 설정
   if (leagueName) {
     switch (leagueName.toLowerCase()) {
       // MLB 이미지 설정
@@ -403,6 +409,7 @@ document.addEventListener("DOMContentLoaded", function () {
     leagueImage.alt = "No league specified";
   }
 
+  // 선택 버튼
   function addVictoryButton(teamImage, container) {
     const victoryBtn = document.createElement("button");
     victoryBtn.innerText = "선택";
@@ -501,7 +508,6 @@ document.addEventListener("DOMContentLoaded", function () {
           gameInfo.appendChild(backgroundCircle); // 흰색 배경 추가
           gameInfo.appendChild(circle); // gameInfo에 동그라미 추가
 
-          // 0ms delay to ensure the above styles are applied before starting the transition
           requestAnimationFrame(() => {
             clonedImage.style.transform = "translate(-50%, -50%) scale(1)"; // 최종 scale 1
           });
@@ -520,6 +526,7 @@ document.addEventListener("DOMContentLoaded", function () {
     container.appendChild(victoryBtn);
   }
 
+  // 엠블럼 추가
   function addEmblems(emblems) {
     emblemsContainer.innerHTML = ""; // 기존 엠블럼 제거
     emblems.forEach((emblem) => {
@@ -532,14 +539,17 @@ document.addEventListener("DOMContentLoaded", function () {
       emblemElement.style.left = emblem.left;
       emblemElement.dataset.src = emblem.src;
       emblemElement.dataset.stadium = emblem.stadium;
-      emblemElement.addEventListener("click", function () {
-        const emblemRect = emblemElement.getBoundingClientRect();
-        const homeTeamImageRect = homeTeamImage.getBoundingClientRect();
-        const awayTeamImageRect = awayTeamImage.getBoundingClientRect();
-        const stadiumRect = stadiumImage.getBoundingClientRect();
-        const scaleX = stadiumRect.width / emblemRect.width;
-        const scaleY = stadiumRect.height / emblemRect.height;
 
+      // 엠블럼 클릭 이벤트
+      emblemElement.addEventListener("click", function () {
+        const emblemRect = emblemElement.getBoundingClientRect(); // 엠블럼 위치 정보
+        const homeTeamImageRect = homeTeamImage.getBoundingClientRect(); // HOME 팀 이미지 위치 정보
+        const awayTeamImageRect = awayTeamImage.getBoundingClientRect(); // AWAY 팀 이미지 위치 정보
+        const stadiumRect = stadiumImage.getBoundingClientRect(); // 구장 이미지 위치 정보
+        const scaleX = stadiumRect.width / emblemRect.width; // 구장 이미지 너비 비율
+        const scaleY = stadiumRect.height / emblemRect.height; // 구장 이미지 높이 비율
+
+        // HOME 또는 AWAY 팀 선택 시
         if (homeTeamSelected) {
           if (currentHomeEmblem) {
             emblemsContainer.appendChild(currentHomeEmblem); // 이전 HOME 엠블럼 복구
@@ -589,8 +599,8 @@ document.addEventListener("DOMContentLoaded", function () {
           awayTeamImage.style.transform = "scale(1, 1)";
 
           currentAwayEmblem = emblemElement;
-          awayTeamSelected = false; // Reset selection
-          awayTeamName.style.color = ""; // Reset color
+          awayTeamSelected = false; // 선택 해제
+          awayTeamName.style.color = ""; // 컬러 초기화
           emblemElement.remove(); // 지도에서 엠블럼 제거
         }
       });
@@ -599,7 +609,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   homeTeamName.addEventListener("click", function () {
-    homeTeamSelected = true;
+    homeTeamSelected = true; // HOME 선택
     awayTeamSelected = false; // AWAY 선택 해제
     homeTeamName.style.color = "#bbb"; // 클릭한걸 알 수 있게 색 변경
     awayTeamName.style.color = ""; // AWAY 색상 초기화
@@ -612,6 +622,6 @@ document.addEventListener("DOMContentLoaded", function () {
     homeTeamName.style.color = ""; // HOME 색상 초기화
   });
 
-  addVictoryButton(homeTeamImage, homeTeamContainer);
-  addVictoryButton(awayTeamImage, awayTeamContainer);
+  addVictoryButton(homeTeamImage, homeTeamContainer); // HOME 팀 선택 버튼
+  addVictoryButton(awayTeamImage, awayTeamContainer); // AWAY 팀 선택 버튼
 });
