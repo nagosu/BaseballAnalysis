@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
         src: "../static/assets/images/mlb/marlins.png",
         top: "480px",
         left: "1100px",
-        stadium: "../static/assets/images/stadium/mlb/marlins.jpg",
+        stadium: "../static/assets/images/stadium/mlb/marlins.webp",
         size: "50px",
       },
       {
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
         src: "../static/assets/images/mlb/pirates.png",
         top: "235px",
         left: "1065px",
-        stadium: "../static/assets/images/stadium/mlb/mlb20.jpeg",
+        stadium: "../static/assets/images/stadium/mlb/pirates.webp",
         size: "30px",
       },
       {
@@ -221,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
         stadium: "../static/assets/images/stadium/mlb/yankees.webp",
       },
     ],
+    // KBO 엠블럼 데이터
     kbo: [
       {
         src: "../static/assets/images/kbo/doosan.png",
@@ -232,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
         src: "../static/assets/images/kbo/hanhwa.png",
         top: "380px",
         left: "500px",
-        stadium: "../static/assets/images/stadium/kbo/hanhwa.png",
+        stadium: "../static/assets/images/stadium/kbo/hanhwa.jpeg",
       },
       {
         src: "../static/assets/images/kbo/kiwoom.png",
@@ -283,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
         stadium: "../static/assets/images/stadium/kbo/kia.jpeg",
       },
     ],
+    // NPB 엠블럼 데이터
     npb: [
       {
         src: "../static/assets/images/npb/baystars.png",
@@ -351,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
         src: "../static/assets/images/npb/swallows.png",
         top: "580px",
         left: "470px",
-        stadium: "../static/assets/images/stadium/npb/swallows.jpeg",
+        stadium: "../static/assets/images/stadium/npb/swallows.jpg",
         size: "50px",
       },
       {
@@ -377,21 +379,18 @@ document.addEventListener("DOMContentLoaded", function () {
         leagueImage.src = "../static/assets/images/league/mlb.jpeg";
         leagueImage.style.width = "880px";
         leagueImage.style.marginLeft = "380px";
-        // 엠블럼 추가
         addEmblems(emblemsData.mlb);
         break;
       case "kbo":
         leagueImage.src = "../static/assets/images/league/kbo.png";
         leagueImage.style.width = "800px";
         leagueImage.style.marginLeft = "150px";
-        // 엠블럼 추가
         addEmblems(emblemsData.kbo);
         break;
       case "npb":
         leagueImage.src = "../static/assets/images/league/npb.jpeg";
         leagueImage.style.width = "930px";
-        leagueImage.style.marginLeft = "0px"; // 필요에 따라 조정
-        // 엠블럼 추가
+        leagueImage.style.marginLeft = "0px";
         addEmblems(emblemsData.npb);
         break;
       default:
@@ -403,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function addVictoryButton(teamImage, container) {
     const victoryBtn = document.createElement("button");
-    victoryBtn.innerText = "승리";
+    victoryBtn.innerText = "선택";
     victoryBtn.className = "victory-btn";
     victoryBtn.style.width = "100px";
     victoryBtn.style.height = "50px";
@@ -420,50 +419,88 @@ document.addEventListener("DOMContentLoaded", function () {
     victoryBtn.style.transform = "translate(-50%, -50%)";
 
     victoryBtn.addEventListener("click", function () {
-      const gameInfo = document.querySelector(".gameInfo");
-      gameInfo.innerHTML = ""; // gameInfo 안의 모든 요소 제거
+      // 모달 생성
+      const modal = document.createElement("div");
+      modal.className = "modal";
+      modal.style.position = "fixed";
+      modal.style.top = "0";
+      modal.style.left = "0";
+      modal.style.width = "100%";
+      modal.style.height = "100%";
+      modal.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+      modal.style.display = "flex";
+      modal.style.justifyContent = "center";
+      modal.style.alignItems = "center";
+      modal.style.zIndex = "1000";
 
-      const clonedImage = teamImage.cloneNode(); // 엠블럼 이미지 복사
-      clonedImage.style.transition = "transform 1s ease, width 1s ease";
-      clonedImage.style.width = "420px"; // 엠블럼 너비 설정
-      clonedImage.style.marginTop = "80px";
-      clonedImage.style.position = "absolute";
-      clonedImage.style.top = "50%";
-      clonedImage.style.left = "50%";
-      clonedImage.style.transform = "translate(-50%, -50%) scale(0)"; // 초기 scale 0
+      // 모달 콘텐츠 생성
+      const modalContent = document.createElement("div");
+      modalContent.className = "modal-content";
+      modalContent.style.backgroundColor = "#fff";
+      modalContent.style.padding = "20px";
+      modalContent.style.borderRadius = "10px";
+      modalContent.style.display = "flex";
+      modalContent.style.justifyContent = "space-around";
+      modalContent.style.width = "80%";
 
-      gameInfo.appendChild(clonedImage); // gameInfo에 복사된 엠블럼 이미지 추가
+      // 버튼 이미지 설정
+      const buttonLabels = ["패스", "플핸", "역배", "승", "U/O"];
+      const buttonImages = {
+        패스: "../static/assets/images/badge/pass.png",
+        플핸: "../static/assets/images/badge/plushandi.png",
+        역배: "../static/assets/images/badge/reverse.png",
+        승: "../static/assets/images/badge/win.png",
+        "U/O": "../static/assets/images/badge/underover.png",
+      };
 
-      // 동그라미 요소 생성
-      const circle = document.createElement("div");
-      circle.style.width = "200px";
-      circle.style.height = "200px";
-      circle.style.borderRadius = "50%";
-      circle.style.backgroundColor = "red"; // 원의 배경색
-      circle.style.position = "absolute";
-      circle.style.top = "calc(50% - 300px)"; // 엠블럼의 왼쪽 위에 위치하도록 조정
-      circle.style.left = "calc(50% - 300px)"; // 엠블럼의 왼쪽 위에 위치하도록 조정
+      buttonLabels.forEach((label) => {
+        const btn = document.createElement("img");
+        btn.src = buttonImages[label];
+        btn.style.width = "100px";
+        btn.style.height = "100px";
+        btn.style.cursor = "pointer";
+        btn.alt = label;
 
-      const label = document.createElement("div");
-      label.innerText = "역배";
-      label.style.color = "white";
-      label.style.position = "absolute";
-      label.style.width = "100%";
-      label.style.textAlign = "center";
-      label.style.top = "50%";
-      label.style.left = "50%";
-      label.style.transform = "translate(-50%, -50%) rotate(-15deg)";
-      label.style.color = "white";
-      label.style.fontSize = "80px";
-      label.style.fontWeight = "bold";
+        btn.addEventListener("click", function () {
+          const gameInfo = document.querySelector(".gameInfo");
+          gameInfo.innerHTML = ""; // gameInfo 안의 모든 요소 제거
 
-      circle.appendChild(label);
-      gameInfo.appendChild(circle); // gameInfo에 동그라미 추가
+          const clonedImage = teamImage.cloneNode(); // 엠블럼 이미지 복사
+          clonedImage.style.transition = "transform 1s ease, width 1s ease";
+          clonedImage.style.width = "420px"; // 엠블럼 너비 설정
+          clonedImage.style.marginTop = "80px";
+          clonedImage.style.position = "absolute";
+          clonedImage.style.top = "50%";
+          clonedImage.style.left = "50%";
+          clonedImage.style.transform = "translate(-50%, -50%) scale(0)"; // 초기 scale 0
 
-      // 0ms delay to ensure the above styles are applied before starting the transition
-      requestAnimationFrame(() => {
-        clonedImage.style.transform = "translate(-50%, -50%) scale(1)"; // 최종 scale 1
+          gameInfo.appendChild(clonedImage); // gameInfo에 복사된 엠블럼 이미지 추가
+
+          // 동그라미 요소 생성
+          const circle = document.createElement("img");
+          circle.src = buttonImages[label]; // 선택한 이미지 설정
+          circle.style.width = "200px";
+          circle.style.height = "200px";
+          circle.style.position = "absolute";
+          circle.style.top = "calc(50% - 300px)"; // 엠블럼의 왼쪽 위에 위치하도록 조정
+          circle.style.left = "calc(50% - 300px)"; // 엠블럼의 왼쪽 위에 위치하도록 조정
+
+          gameInfo.appendChild(circle); // gameInfo에 동그라미 추가
+
+          // 0ms delay to ensure the above styles are applied before starting the transition
+          requestAnimationFrame(() => {
+            clonedImage.style.transform = "translate(-50%, -50%) scale(1)"; // 최종 scale 1
+          });
+
+          // 모달 제거
+          document.body.removeChild(modal);
+        });
+
+        modalContent.appendChild(btn);
       });
+
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
     });
 
     container.appendChild(victoryBtn);
