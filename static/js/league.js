@@ -375,18 +375,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (leagueName) {
     switch (leagueName.toLowerCase()) {
+      // MLB 이미지 설정
       case "mlb":
         leagueImage.src = "../static/assets/images/league/mlb.jpeg";
         leagueImage.style.width = "880px";
         leagueImage.style.marginLeft = "380px";
         addEmblems(emblemsData.mlb);
         break;
+      // KBO 이미지 설정
       case "kbo":
         leagueImage.src = "../static/assets/images/league/kbo.png";
         leagueImage.style.width = "800px";
         leagueImage.style.marginLeft = "150px";
         addEmblems(emblemsData.kbo);
         break;
+      // NPB 이미지 설정
       case "npb":
         leagueImage.src = "../static/assets/images/league/npb.jpeg";
         leagueImage.style.width = "930px";
@@ -467,8 +470,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const clonedImage = teamImage.cloneNode(); // 엠블럼 이미지 복사
           clonedImage.style.transition = "transform 1s ease, width 1s ease";
-          clonedImage.style.width = "420px"; // 엠블럼 너비 설정
-          clonedImage.style.marginTop = "80px";
+          clonedImage.style.width = "550px"; // 엠블럼 너비 설정
+          clonedImage.style.marginTop = "60px";
           clonedImage.style.position = "absolute";
           clonedImage.style.top = "50%";
           clonedImage.style.left = "50%";
@@ -476,15 +479,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
           gameInfo.appendChild(clonedImage); // gameInfo에 복사된 엠블럼 이미지 추가
 
+          // 흰색 배경 요소 생성
+          const backgroundCircle = document.createElement("div");
+          backgroundCircle.style.width = "180px";
+          backgroundCircle.style.height = "180px";
+          backgroundCircle.style.borderRadius = "50%";
+          backgroundCircle.style.backgroundColor = "white";
+          backgroundCircle.style.position = "absolute";
+          backgroundCircle.style.top = "calc(50% - 300px)";
+          backgroundCircle.style.left = "calc(50% - 300px)";
+
           // 동그라미 요소 생성
           const circle = document.createElement("img");
           circle.src = buttonImages[label]; // 선택한 이미지 설정
           circle.style.width = "200px";
           circle.style.height = "200px";
           circle.style.position = "absolute";
-          circle.style.top = "calc(50% - 300px)"; // 엠블럼의 왼쪽 위에 위치하도록 조정
-          circle.style.left = "calc(50% - 300px)"; // 엠블럼의 왼쪽 위에 위치하도록 조정
+          circle.style.top = "calc(50% - 300px)";
+          circle.style.left = "calc(50% - 300px)";
 
+          gameInfo.appendChild(backgroundCircle); // 흰색 배경 추가
           gameInfo.appendChild(circle); // gameInfo에 동그라미 추가
 
           // 0ms delay to ensure the above styles are applied before starting the transition
