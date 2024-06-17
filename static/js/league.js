@@ -502,6 +502,7 @@ document.addEventListener("DOMContentLoaded", function () {
           clonedImage.style.top = "50%";
           clonedImage.style.left = "50%";
           clonedImage.style.transform = "translate(-50%, -50%) scale(0)"; // 초기 scale 0
+          clonedImage.style.cursor = "pointer";
 
           gameInfo.appendChild(clonedImage); // gameInfo에 복사된 엠블럼 이미지 추가
 
@@ -523,6 +524,7 @@ document.addEventListener("DOMContentLoaded", function () {
           circle.style.position = "absolute";
           circle.style.top = "calc(50% - 300px)";
           circle.style.left = "calc(50% - 300px)";
+          circle.style.cursor = "pointer";
 
           gameInfo.appendChild(backgroundCircle); // 흰색 배경 추가
           gameInfo.appendChild(circle); // gameInfo에 동그라미 추가
@@ -536,9 +538,9 @@ document.addEventListener("DOMContentLoaded", function () {
           document.body.removeChild(modal);
 
           // 선택된 이미지 클릭 이벤트 추가
-          circle.addEventListener("click", function () {
-            // 모달 다시 열기
-            document.body.appendChild(modal);
+          clonedImage.addEventListener("click", function () {
+            // 새로고침
+            window.location.reload();
           });
         });
 
