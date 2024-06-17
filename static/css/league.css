@@ -96,11 +96,21 @@
 
 .container .gameInfo .stadium {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   width: 575px;
   height: 290px;
   /* overflow: hidden; */
+
+  &:hover {
+    .stadiumBtnWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+  }
 }
 
 .container .gameInfo .stadium img {
@@ -110,6 +120,25 @@
   border-radius: 50%;
   width: 575px;
   height: 290px;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.stadiumBtnWrapper {
+  display: none;
+  position: absolute;
+}
+
+.stadium-btn {
+  font-size: 24px;
+  padding: 10px 30px;
+  border: none;
+  background-color: #b3b3b3;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 .victory-btn {

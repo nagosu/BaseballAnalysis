@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const awayTeamImage = document.getElementById("awayTeamImage");
   const homeTeamContainer = document.getElementById("homeTeamContainer");
   const awayTeamContainer = document.getElementById("awayTeamContainer");
+  const homeStadiumBtn = document.getElementById("homeStadiumBtn");
+  const subStadiumBtn = document.getElementById("subStadiumBtn");
 
   // 팀 선택 여부
   let homeTeamSelected = false;
@@ -263,6 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
         top: "535px",
         left: "700px",
         stadium: "../static/assets/images/stadium/kbo/lotte.jpeg",
+        sub_stadium: "../static/assets/images/stadium/sub/lotte_sub.jpeg",
       },
       {
         src: "../static/assets/images/kbo/nc.png",
@@ -569,6 +572,7 @@ document.addEventListener("DOMContentLoaded", function () {
       emblemElement.style.left = emblem.left;
       emblemElement.dataset.src = emblem.src;
       emblemElement.dataset.stadium = emblem.stadium;
+      emblemElement.dataset.subStadium = emblem.sub_stadium; // sub_stadium 데이터 추가
 
       // 엠블럼 클릭 이벤트
       emblemElement.addEventListener("click", function () {
@@ -579,21 +583,41 @@ document.addEventListener("DOMContentLoaded", function () {
         const scaleX = stadiumRect.width / emblemRect.width; // 구장 이미지 너비 비율
         const scaleY = stadiumRect.height / emblemRect.height; // 구장 이미지 높이 비율
 
+        const homeStadiumBtn = document.getElementById("homeStadiumBtn");
+        const subStadiumBtn = document.getElementById("subStadiumBtn");
+
+        const handleStadiumImage = (stadiumSrc) => {
+          stadiumImage.src = stadiumSrc;
+          stadiumImage.style.transition = "none";
+          stadiumImage.style.transformOrigin = `${
+            emblemRect.left - stadiumRect.left + emblemRect.width / 2
+          }px ${emblemRect.top - stadiumRect.top + emblemRect.height / 2}px`;
+          stadiumImage.style.transform = `scale(${1 / scaleX}, ${1 / scaleY})`;
+          stadiumImage.offsetHeight;
+          stadiumImage.style.transition = "transform 1s ease";
+          stadiumImage.style.transform = "scale(1, 1)";
+        };
+
         // HOME 또는 AWAY 팀 선택 시
         if (homeTeamSelected) {
           if (currentHomeEmblem) {
             emblemsContainer.appendChild(currentHomeEmblem); // 이전 HOME 엠블럼 복구
           }
 
-          stadiumImage.src = emblem.stadium;
-          stadiumImage.style.transition = "none"; // 애니메이션 초기화
-          stadiumImage.style.transformOrigin = `${
-            emblemRect.left - stadiumRect.left + emblemRect.width / 2
-          }px ${emblemRect.top - stadiumRect.top + emblemRect.height / 2}px`;
-          stadiumImage.style.transform = `scale(${1 / scaleX}, ${1 / scaleY})`;
-          stadiumImage.offsetHeight; // 레이아웃 트리거
-          stadiumImage.style.transition = "transform 1s ease";
-          stadiumImage.style.transform = "scale(1, 1)";
+          handleStadiumImage(emblem.stadium);
+          homeStadiumBtn.onclick = () => handleStadiumImage(emblem.stadium);
+          subStadiumBtn.onclick = () =>
+            handleStadiumImage(emblem.sub_stadium || emblem.stadium);
+
+          // stadiumImage.src = emblem.stadium;
+          // stadiumImage.style.transition = "none"; // 애니메이션 초기화
+          // stadiumImage.style.transformOrigin = `${
+          //   emblemRect.left - stadiumRect.left + emblemRect.width / 2
+          // }px ${emblemRect.top - stadiumRect.top + emblemRect.height / 2}px`;
+          // stadiumImage.style.transform = `scale(${1 / scaleX}, ${1 / scaleY})`;
+          // stadiumImage.offsetHeight; // 레이아웃 트리거
+          // stadiumImage.style.transition = "transform 1s ease";
+          // stadiumImage.style.transform = "scale(1, 1)";
 
           homeTeamImage.src = emblem.src;
           homeTeamImage.style.transition = "none"; // 애니메이션 초기화
