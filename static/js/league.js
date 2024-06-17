@@ -511,13 +511,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // 흰색 배경 요소 생성
           const backgroundCircle = document.createElement("div");
-          backgroundCircle.style.width = "200px";
-          backgroundCircle.style.height = "200px";
+          backgroundCircle.style.width = "180px";
+          backgroundCircle.style.height = "180px";
           backgroundCircle.style.borderRadius = "50%";
           backgroundCircle.style.backgroundColor = "white";
           backgroundCircle.style.position = "absolute";
-          backgroundCircle.style.top = "calc(50% - 300px)";
-          backgroundCircle.style.left = "calc(50% - 300px)";
+          backgroundCircle.style.top = "calc(50% - 290px)";
+          backgroundCircle.style.left = "calc(50% - 290px)";
+          backgroundCircle.style.zIndex = "999";
 
           // 동그라미 요소 생성
           const circle = document.createElement("img");
@@ -528,6 +529,7 @@ document.addEventListener("DOMContentLoaded", function () {
           circle.style.top = "calc(50% - 300px)";
           circle.style.left = "calc(50% - 300px)";
           circle.style.cursor = "pointer";
+          circle.style.zIndex = "1000";
 
           gameInfo.appendChild(backgroundCircle); // 흰색 배경 추가
           gameInfo.appendChild(circle); // gameInfo에 동그라미 추가
@@ -544,6 +546,12 @@ document.addEventListener("DOMContentLoaded", function () {
           clonedImage.addEventListener("click", function () {
             // 새로고침
             window.location.reload();
+          });
+
+          // 선택된 이미지 클릭 이벤트 추가
+          circle.addEventListener("click", function () {
+            // 모달 다시 열기
+            document.body.appendChild(modal);
           });
         });
 
