@@ -163,3 +163,16 @@
 .teamImageContainer img:hover {
   opacity: 0.7; /* hover 시 엠블럼 투명도 조절 */
 }
+
+.home {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  display: flex;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
