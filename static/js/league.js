@@ -534,6 +534,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // 모달 제거
           document.body.removeChild(modal);
+
+          // 선택된 이미지 클릭 이벤트 추가
+          circle.addEventListener("click", function () {
+            // 모달 다시 열기
+            document.body.appendChild(modal);
+          });
         });
 
         buttonsContainer.appendChild(btn);
