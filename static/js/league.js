@@ -450,8 +450,22 @@ document.addEventListener("DOMContentLoaded", function () {
       modalContent.style.padding = "20px";
       modalContent.style.borderRadius = "10px";
       modalContent.style.display = "flex";
-      modalContent.style.justifyContent = "space-around";
-      modalContent.style.width = "80%";
+      modalContent.style.flexDirection = "column";
+      modalContent.style.alignItems = "center";
+      modalContent.style.width = "60%";
+
+      // 취소 버튼 생성
+      const cancelButton = document.createElement("button");
+      cancelButton.innerHTML =
+        '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18" stroke="#33363F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 6L18 18" stroke="#33363F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      cancelButton.style.background = "none";
+      cancelButton.style.border = "none";
+      cancelButton.style.cursor = "pointer";
+      cancelButton.style.alignSelf = "flex-end";
+
+      cancelButton.addEventListener("click", function () {
+        document.body.removeChild(modal);
+      });
 
       // 버튼 이미지 설정
       const buttonLabels = ["패스", "플핸", "역배", "승", "U/O"];
@@ -462,6 +476,11 @@ document.addEventListener("DOMContentLoaded", function () {
         승: "../static/assets/images/badge/win.png",
         "U/O": "../static/assets/images/badge/underover.png",
       };
+
+      const buttonsContainer = document.createElement("div");
+      buttonsContainer.style.display = "flex";
+      buttonsContainer.style.justifyContent = "space-around";
+      buttonsContainer.style.width = "100%";
 
       buttonLabels.forEach((label) => {
         const btn = document.createElement("img");
@@ -477,8 +496,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const clonedImage = teamImage.cloneNode(); // 엠블럼 이미지 복사
           clonedImage.style.transition = "transform 1s ease, width 1s ease";
-          clonedImage.style.width = "550px"; // 엠블럼 너비 설정
-          clonedImage.style.marginTop = "60px";
+          clonedImage.style.width = "600px"; // 엠블럼 너비 설정
+          clonedImage.style.marginTop = "80px";
           clonedImage.style.position = "absolute";
           clonedImage.style.top = "50%";
           clonedImage.style.left = "50%";
@@ -488,8 +507,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // 흰색 배경 요소 생성
           const backgroundCircle = document.createElement("div");
-          backgroundCircle.style.width = "180px";
-          backgroundCircle.style.height = "180px";
+          backgroundCircle.style.width = "200px";
+          backgroundCircle.style.height = "200px";
           backgroundCircle.style.borderRadius = "50%";
           backgroundCircle.style.backgroundColor = "white";
           backgroundCircle.style.position = "absolute";
@@ -508,6 +527,7 @@ document.addEventListener("DOMContentLoaded", function () {
           gameInfo.appendChild(backgroundCircle); // 흰색 배경 추가
           gameInfo.appendChild(circle); // gameInfo에 동그라미 추가
 
+          // 0ms delay to ensure the above styles are applied before starting the transition
           requestAnimationFrame(() => {
             clonedImage.style.transform = "translate(-50%, -50%) scale(1)"; // 최종 scale 1
           });
@@ -516,9 +536,11 @@ document.addEventListener("DOMContentLoaded", function () {
           document.body.removeChild(modal);
         });
 
-        modalContent.appendChild(btn);
+        buttonsContainer.appendChild(btn);
       });
 
+      modalContent.appendChild(cancelButton);
+      modalContent.appendChild(buttonsContainer);
       modal.appendChild(modalContent);
       document.body.appendChild(modal);
     });
